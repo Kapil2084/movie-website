@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Streaming Website</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <header>
+        <h1>MovieStream</h1>
+        <nav>
+            <a href="#" id="login-btn">Login</a>
+        </nav>
+    </header>
+
+    <!-- Login Modal -->
+    <div id="login-modal" class="modal">
+        <div class="modal-content">
+            <h2>Login</h2>
+            <input type="text" placeholder="Username">
+            <input type="password" placeholder="Password">
+            <button id="login-submit">Login</button>
+            <button id="close-modal">Close</button>
+        </div>
+    </div>
+
+    <!-- Movie Gallery -->
+    <section class="gallery">
+        <h2>Available Movies</h2>
+        <div class="movies">
+            <div class="movie" onclick="playMovie('sample.mp4')">
+                <img src="poster1.jpg" alt="Movie 1">
+                <p>Sample Movie</p>
+            </div>
+            <div class="movie" onclick="playMovie('sample2.mp4')">
+                <img src="poster2.jpg" alt="Movie 2">
+                <p>Another Movie</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Player -->
+    <div id="video-container" class="hidden">
+        <video id="video-player" controls>
+            <source id="video-source" src="" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="controls">
+            <button onclick="toggleFullscreen()">Fullscreen</button>
+            <button onclick="closePlayer()">Close</button>
+        </div>
+    </div>
+
+    <script>
+        // Login modal
+        const modal = document.getElementById('login-modal');
+        document.getElementById('login-btn').onclick = () => modal.style.display = 'block';
+        document.getElementById('close-modal').onclick = () => modal.style.display = 'none';
+
+        // Play movie
+        function playMovie(src) {
+            document.getElementById('video-source').src = src;
+            document.getElementById('video-player').load();
+            document.getElementById('video-container').classList.remove('hidden');
+        }
+
+        function toggleFullscreen() {
+            const video = document.getElementById('video-player');
+            if (video.requestFullscreen) {
+                video.requestFullscreen();
+            } else if (video.webkitRequestFullscreen) {
+                video.webkitRequestFullscreen();
+            }
+        }
+
+        function closePlayer() {
+            document.getElementById('video-container').classList.add('hidden');
+            document.getElementById('video-player').pause();
+        }
+    </script>
+</body>
+</html>
